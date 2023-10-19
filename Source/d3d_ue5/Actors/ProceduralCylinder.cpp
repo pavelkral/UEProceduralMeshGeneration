@@ -58,23 +58,19 @@ void AProceduralCylinder::GenerateCylinder(TArray<FVector>& Vertices, TArray<int
 		NumVerts += 2 * (InCrossSectionCount - 1) * 3;
 	}
 
-	// Clear out the arrays passed in
+	//reset
 	Triangles.Reset();
-
 	Vertices.Reset();
-	Vertices.AddUninitialized(NumVerts);
-
+	Vertices.AddUninitialized(NumVerts);=
 	Normals.Reset();
 	Normals.AddUninitialized(NumVerts);
-
 	Tangents.Reset();
 	Tangents.AddUninitialized(NumVerts);
-
 	UVs.Reset();
 	UVs.AddUninitialized(NumVerts);
 
 	// -------------------------------------------------------
-	// Make a cylinder section
+	// Generatio
 	const float AngleBetweenQuads = (2.0f / (float)(InCrossSectionCount)) * PI;
 	const float VMapPerQuad = 1.0f / (float)InCrossSectionCount;
 	FVector Offset = FVector(0, 0, InHeight);

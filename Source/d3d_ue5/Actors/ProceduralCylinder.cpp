@@ -61,7 +61,7 @@ void AProceduralCylinder::GenerateCylinder(TArray<FVector>& Vertices, TArray<int
 	//reset
 	Triangles.Reset();
 	Vertices.Reset();
-	Vertices.AddUninitialized(NumVerts);=
+	Vertices.AddUninitialized(NumVerts);
 	Normals.Reset();
 	Normals.AddUninitialized(NumVerts);
 	Tangents.Reset();

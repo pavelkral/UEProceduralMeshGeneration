@@ -26,10 +26,7 @@ protected:
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	UProceduralMeshComponent* PipeMesh;
-
-	UPROPERTY(VisibleAnywhere)
-	UProceduralMeshComponent* ProceduralMesh;
+	UProceduralMeshComponent* PlaneMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
 	int32 NumSegments;

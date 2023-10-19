@@ -2,13 +2,13 @@
 
 
 #include "ProceduralPlane.h"
-#include "ProceduralMeshComponent.h"
+//#include "ProceduralMeshComponent.h"
 
 // Sets default values
 AProceduralPlane::AProceduralPlane()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
     // Create the procedural mesh component.
     PipeMesh = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("PipeMesh"));
     //;RootComponent = PipeMesh;
@@ -39,9 +39,13 @@ void AProceduralPlane::Tick(float DeltaTime)
 void AProceduralPlane::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
+    Vertices.Empty();
+    Triangles.Empty();
+	PipeMesh->ClearAllMeshSections();
+	GeneratePlaneMesh();
 
-    // Call the mesh generation function when the actor is constructed or its properties are modified in the editor.
-    GeneratePipeMesh();
+	//GenerateCylinder();
+    //GeneratePipeMesh();
 }
 void AProceduralPlane::GeneratePipeMesh()
 {
@@ -50,8 +54,6 @@ void AProceduralPlane::GeneratePipeMesh()
         return;
     }
 
-    TArray<FVector> Vertices;
-    TArray<int32> Triangles;
 
     for (int32 Segment = 0; Segment < NumSegments; Segment++)
     {
@@ -86,9 +88,7 @@ void AProceduralPlane::GeneratePipeMesh()
 
 void AProceduralPlane::GeneratePlaneMesh()
 {
-    TArray<FVector> Vertices;
-    TArray<int> Triangles;
-    TArray<FVector2D> UV0;
+  
 
     for (int X = 0; X <= XSize; ++X)
     {
@@ -118,8 +118,6 @@ void AProceduralPlane::GeneratePlaneMesh()
         ++Vertex;
     }
 
-    ProceduralMesh->CreateMeshSection(0, Vertices, Triangles, TArray<FVector>(), UV0, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
-    ProceduralMesh->SetMaterial(0, Material);
+    PipeMesh->CreateMeshSection(0, Vertices, Triangles, TArray<FVector>(), UV0, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+    PipeMesh->SetMaterial(0, Material);
 }
-
-

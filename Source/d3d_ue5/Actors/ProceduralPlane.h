@@ -28,15 +28,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UProceduralMeshComponent* PlaneMesh;
 
-	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
-	int32 NumSegments;
-
-	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
-	float Radius;
-
-	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
-	float SegmentLength;
-
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
 	int XSize = 5;
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
@@ -58,15 +49,9 @@ private:
 	TArray<FProcMeshTangent> Tangents;
 	TArray<FColor> VertexColors;
 
-
 	void OnConstruction(const FTransform& Transform);
-
-	void GeneratePipeMesh();
 	void GeneratePlaneMesh();
-
-
 public:	
-	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

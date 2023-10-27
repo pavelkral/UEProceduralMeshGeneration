@@ -14,10 +14,6 @@ AProceduralPlane::AProceduralPlane()
     //;RootComponent = PipeMesh;
     PlaneMesh->SetupAttachment(GetRootComponent());
 
-    // Set default values for pipe parameters.
-    NumSegments = 10;
-    Radius = 100.0f;
-    SegmentLength = 100.0f;
 
 }
 
@@ -44,47 +40,8 @@ void AProceduralPlane::OnConstruction(const FTransform& Transform)
 	PlaneMesh->ClearAllMeshSections();
 	GeneratePlaneMesh();
 
-	//GenerateCylinder();
-    //GeneratePipeMesh();
 }
-void AProceduralPlane::GeneratePipeMesh()
-{
-    if (NumSegments <= 0 || Radius <= 0 || SegmentLength <= 0)
-    {
-        return;
-    }
 
-
-    for (int32 Segment = 0; Segment < NumSegments; Segment++)
-    {
-        float Angle = 2.0f * PI * (float)Segment / (float)NumSegments;
-        float z = 0.0f;
-
-        FVector StartTop = FVector(FMath::Cos(Angle) * Radius, FMath::Sin(Angle) * Radius,  SegmentLength);
-        FVector StartBottom = FVector(FMath::Cos(Angle) * Radius, FMath::Sin(Angle) * Radius, 0.0f);
-        FVector EndTop = FVector(FMath::Cos(Angle + 2.0f * PI / NumSegments) * Radius, FMath::Sin(Angle + 2.0f * PI / NumSegments) * Radius,  SegmentLength);
-        FVector EndBottom = FVector(FMath::Cos(Angle + 2.0f * PI / NumSegments) * Radius, FMath::Sin(Angle + 2.0f * PI / NumSegments) * Radius, 0.0f);
-
-        // Add vertices
-        Vertices.Add(StartTop);
-        Vertices.Add(StartBottom);
-        Vertices.Add(EndTop);
-        Vertices.Add(EndBottom);
-
-        // Add triangles
-        int32 BaseIndex = Segment * 4;
-        Triangles.Add(BaseIndex);
-        Triangles.Add(BaseIndex + 1);
-        Triangles.Add(BaseIndex + 2);
-        Triangles.Add(BaseIndex + 2);
-        Triangles.Add(BaseIndex + 1);
-        Triangles.Add(BaseIndex + 3);
-    }
-
-    // Create the mesh section
-    PlaneMesh->CreateMeshSection(0, Vertices, Triangles, TArray<FVector>(), TArray<FVector2D>(), TArray<FColor>(), TArray<FProcMeshTangent>(), false);
-    PlaneMesh->SetMaterial(0, Material);
-}
 
 void AProceduralPlane::GeneratePlaneMesh()
 {

@@ -13,7 +13,6 @@ class D3D_UE5_API AProceduralPipe : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AProceduralPipe();
 private:
 
@@ -25,20 +24,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
 	float SegmentLength;
-
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
-	int XSize = 5;
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
-	int YSize = 5;
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
-	float ZMultiplier = 1.0f;
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
-	float NoiseScale = 1.0f;
-
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
-	float Scale = 100.0f;
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
-	float UVScale = 0.0f;
 
 	TArray<FVector> Vertices;
 	TArray<int> Triangles;
@@ -57,11 +42,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* Material;
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 };

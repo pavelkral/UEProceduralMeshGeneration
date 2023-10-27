@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ProceduralMeshComponent.h"
 #include "ProceduralPipe.generated.h"
 
 UCLASS()
@@ -14,8 +15,48 @@ class D3D_UE5_API AProceduralPipe : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AProceduralPipe();
+private:
 
+	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
+	int32 NumSegments;
+
+	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
+	float Radius;
+
+	UPROPERTY(EditAnywhere, Category = "Pipe Settings")
+	float SegmentLength;
+
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
+	int XSize = 5;
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
+	int YSize = 5;
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
+	float ZMultiplier = 1.0f;
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
+	float NoiseScale = 1.0f;
+
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
+	float Scale = 100.0f;
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
+	float UVScale = 0.0f;
+
+	TArray<FVector> Vertices;
+	TArray<int> Triangles;
+	TArray<FVector2D> UV0;
+	TArray<FVector> Normals;
+	TArray<FProcMeshTangent> Tangents;
+	TArray<FColor> VertexColors;
+
+	UPROPERTY(VisibleAnywhere)
+	UProceduralMeshComponent* PMesh;
+
+	void OnConstruction(const FTransform& Transform);
+
+	void GeneratePipeMesh();
 protected:
+
+	UPROPERTY(EditAnywhere)
+	UMaterialInterface* Material;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
